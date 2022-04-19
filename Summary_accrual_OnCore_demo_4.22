@@ -1,0 +1,56 @@
+---
+title: "Accrual_2016LS092"
+author: "Maria Godinez"
+date: "April 19, 2022"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+library(readxl)
+demo <- read_excel("2016LS092-Demographics.xlsx")
+
+```
+
+
+
+
+```{r}
+library(dplyr)
+#categorize age
+demo <- demo %>% mutate(`Age at On Study` = case_when(`Age at On Study` > 65  & `Age at On Study` <= 150 ~ 'Older than 65',
+                                             `Age at On Study` > 18  & `Age at On Study` <= 65 ~ '18-65',
+                                             `Age at On Study` >= 0  & `Age at On Study` <= 18 ~ 'Less than 18'))
+
+
+```
+
+```{r echo=FALSE}
+demo  %>% 
+  group_by(Arms,`Age at On Study`) %>% 
+  summarize(n())
+```
+
+
+
+
+
+```{r echo=FALSE}
+demo  %>% 
+  group_by(Arms,`Gender`) %>% 
+  summarize(n())
+```
+
+
+
+```{r echo=FALSE}
+demo  %>% 
+  group_by(Arms,`Race`) %>% 
+  summarize(n())
+```
+
+```{r echo=FALSE}
+demo %>% 
+  group_by(Arms,`Ethnicity`) %>% 
+  summarize(n())
+```
+
